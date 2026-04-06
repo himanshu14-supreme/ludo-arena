@@ -1,0 +1,45 @@
+:root {
+    --bg-dark: #0f172a; --accent-gold: #fbbf24; --accent-green: #10b981;
+    --glass-bg: rgba(30, 41, 59, 0.9); --text-dim: #94a3b8;
+}
+
+body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: white; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 20px; }
+.hidden { display: none !important; }
+
+.lobby-container { background: var(--glass-bg); padding: 30px; border-radius: 20px; width: 350px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+.menu-btn { width: 100%; padding: 12px; margin: 5px 0; border: none; border-radius: 8px; background: var(--accent-gold); color: black; font-weight: 800; cursor: pointer; }
+.join-variant { background: #6366f1; color: white; }
+
+/* Ludo Board */
+.ludo-board { 
+    display: grid; grid-template-columns: repeat(9, 1fr); gap: 5px; 
+    background: rgba(255,255,255,0.05); padding: 10px; border-radius: 12px;
+    position: relative; width: 100%; max-width: 500px;
+}
+.cell { 
+    height: 45px; background: rgba(30,41,59,0.5); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #475569;
+}
+#cell-0 { background: #334155; color: white; font-weight: 800; }
+#cell-53 { background: var(--accent-gold); color: black; box-shadow: 0 0 15px var(--accent-gold); }
+
+.statue { 
+    position: absolute; width: 32px; height: 32px; z-index: 100;
+    transition: all 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+    border-radius: 50%; border: 2px solid white;
+}
+.p1 { background: #ef4444; } .p2 { background: #3b82f6; }
+.p3 { background: #10b981; } .p4 { background: #f59e0b; }
+
+/* Dice Animation */
+#dice-display { font-size: 4rem; margin-bottom: 10px; }
+.shake { animation: shake 0.4s; }
+@keyframes shake {
+    0% { transform: rotate(0); }
+    25% { transform: rotate(20deg); }
+    75% { transform: rotate(-20deg); }
+    100% { transform: rotate(0); }
+}
+
+.toast { background: #1e293b; color: white; padding: 10px 20px; border-radius: 8px; margin-top: 10px; border-left: 4px solid var(--accent-gold); }
