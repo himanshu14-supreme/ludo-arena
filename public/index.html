@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ludo Arena: Multiplayer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="auth-screen" class="lobby-container">
+        <h1>Ludo Arena</h1>
+        <div style="margin-bottom: 20px;">
+            <input type="text" id="auth-user" placeholder="Username" style="margin-bottom:10px">
+            <input type="password" id="auth-pass" placeholder="Password" style="margin-bottom:10px">
+            <div style="display: flex; gap: 10px;">
+                <button class="menu-btn" onclick="login()" style="flex:1">Login</button>
+                <button class="menu-btn join-variant" onclick="register()" style="flex:1">Register</button>
+            </div>
+            <button class="menu-btn" onclick="playGuest()" style="width:100%; margin-top:10px; background: #334155;">Play as Guest</button>
+        </div>
+    </div>
+
+    <div id="lobby" class="lobby-container hidden">
+        <div class="user-profile">
+            <span id="display-name">Guest</span> | <span id="display-coins">600</span> 💰
+        </div>
+        <div class="main-menu">
+            <button class="menu-btn" onclick="openModal('shop-modal')">🏪 Shop</button>
+            <button class="menu-btn" onclick="openModal('vault-modal')">🎒 Vault</button>
+            <div class="divider">PLAY</div>
+            <input type="number" id="player-limit" value="2" min="2" max="4" style="width: 60px; margin-bottom: 10px;">
+            <button class="menu-btn" onclick="createRoom()">Create Room</button>
+            <input type="text" id="room-input" placeholder="Room Code">
+            <button class="menu-btn join-variant" onclick="joinRoom()">Join Room</button>
+        </div>
+    </div>
+
+    <div id="waiting-room" class="lobby-container hidden">
+        <h2 id="wait-room-id">ROOM: ----</h2>
+        <p id="player-count-text">Players: 1/4</p>
+        <ul id="player-list" style="list-style:none; padding:0; margin:20px 0; text-align:left;"></ul>
+        <button id="start-game-btn" class="menu-btn hidden" onclick="requestStart()">Start Game</button>
+        <p id="host-wait-msg">Waiting for host to start...</p>
+    </div>
+
+    <div id="game-screen" class="game-container hidden">
+        <div id="status" style="text-align:center; font-weight:800; margin-bottom:10px;"></div>
+        
+        <div class="dice-section">
+            <div id="dice-display">🎲</div>
+            <button id="roll-btn" class="menu-btn roll-variant hidden" onclick="rollDice()">Roll Dice</button>
+        </div>
+
+        <div id="board" class="ludo-board">
+            <div id="player1" class="statue p1 hidden">👤</div>
+            <div id="player2" class="statue p2 hidden">👤</div>
+            <div id="player3" class="statue p3 hidden">👤</div>
+            <div id="player4" class="statue p4 hidden">👤</div>
+        </div>
+    </div>
+
+    <div id="shop-modal" class="modal">
+        <div class="modal-content glass-effect">
+            <h2 style="color: var(--accent-gold);">Marketplace</h2>
+            <div class="shop-grid">
+                <div class="shop-item">
+                    <div class="preview">🛡️</div><p>Knight Avatar</p>
+                    <button class="menu-btn" onclick="buyItem('avatar_knight', 300)">300 💰</button>
+                </div>
+                <div class="shop-item">
+                    <div class="preview">🔥</div><p>Fire Sword</p>
+                    <button class="menu-btn" onclick="buyItem('ability_fire_sword', 500)">500 💰</button>
+                </div>
+            </div>
+            <button class="menu-btn" onclick="closeModal('shop-modal')">Close</button>
+        </div>
+    </div>
+
+    <div id="vault-modal" class="modal">
+        <div class="modal-content glass-effect">
+            <h2>Your Vault</h2>
+            <div id="inventory-list" class="shop-grid"></div>
+            <button class="menu-btn" onclick="closeModal('vault-modal')">Close</button>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
